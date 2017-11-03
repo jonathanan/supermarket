@@ -23,6 +23,11 @@ semicolons.
 
 Product codes can be found in `config/products.json`
 
+e.g.
+```
+export SKUS="E5T6-9UI3-TH15-QR88; YRT6-72AS-K736-L4AR"
+```
+
 To run the application:
 ```
 # Using Makefile
