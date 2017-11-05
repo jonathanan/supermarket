@@ -1,4 +1,4 @@
 build:
 	docker build -t supermarket .
 run:
-	docker run --rm -e SKUS="${SKUS}" supermarket
+	docker run -e SKUS="${SKUS}" -it supermarket

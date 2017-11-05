@@ -12,8 +12,28 @@ class SupermarketRegister:
         self.local_sales_tax = local_sales_tax
 
     def list_products(self):
-        for code, info in self.product_codes.items():
-            print(code, info)
+        if not self.product_codes:
+            print('Empty, no product codes')
+        else:
+            for code, info in self.product_codes.items():
+                print(code, info)
+
+    def add_product(self, product):
+        for code, info in product.items():
+            self._validate_product_code_pattern(code)
+            self._validate_product_price(product[code]['price'])
+            if not code in self.product_codes:
+                self.product_codes[code.upper()] = info
+            else:
+                raise KeyError('Product already exists: {0}'.format(code))
+
+    def remove_product(self, code):
+            code = code.upper()
+            self._validate_product_code_pattern(code)
+            if code in self.product_codes:
+                self.product_codes.pop(code, None)
+            else:
+                raise KeyError('Product does not exists: {0}'.format(code))
 
     def total_cost(self, products):
         codes = ''.join(products.split()).split(';')

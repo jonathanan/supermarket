@@ -47,6 +47,50 @@ class TestSupermarketRegister(unittest.TestCase):
         with self.assertRaises(ValueError):
             supermarket_register.SupermarketRegister(product_codes)
 
+    def test_add_product(self):
+        """
+        Test that an input of a product will be added to the Supermarket
+        register.
+        """
+        sm = self._mock_supermarket_instance()
+        product = {
+                'BBBB-BBBB-BBBB-BBBB': {
+                    'product': 'b',
+                    'price': 2
+                }
+        }
+        sm.add_product(product)
+        # Test product is added
+        self.assertEqual(
+                sm.product_codes['BBBB-BBBB-BBBB-BBBB'],
+                    { 'product': 'b', 'price': 2 }
+                )
+
+        # Test KeyError is raised if product already exists
+        with self.assertRaises(KeyError):
+            sm.add_product(product)
+
+    def test_remove_product(self):
+        """
+        Test that an input of a product will be removed from the Supermarket
+        register.
+        """
+        sm = self._mock_supermarket_instance()
+        product = {
+                'XXXX-XXXX-XXXX-XXXX': {
+                    'product': 'a',
+                    'price': 1
+                }
+        }
+        sm.remove_product('XXXX-XXXX-XXXX-XXXX')
+        # Test product is removed
+        self.assertTrue('XXXX-XXXX-XXXX-XXXX' not in sm.product_codes)
+
+        # Test KeyError is raised if product does not exists.
+        with self.assertRaises(KeyError):
+            sm.remove_product('XXXX-XXXX-XXXX-XXXX')
+
+
     def test_total_cost(self):
         """
         Test that an input string of product codes separated by semicolons will
