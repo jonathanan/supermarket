@@ -39,7 +39,7 @@ To run the application:
 make run
 
 # Using docker explicitly
-docker run --rm -e SKUS=$SKUS supermarket
+docker run -e SKUS="${SKUS}" -it supermarket
 ````
 
 To start an exited application and continue from it's last saved state:
